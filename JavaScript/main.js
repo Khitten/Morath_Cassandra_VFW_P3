@@ -11,19 +11,17 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 //create select field element and populate with options
 	function chooseBreed(){ 
-		var formTag = document.getElementsByTagName("form"), 
-			selectLi = $('breed');
-			makeSelect = document.createElement('select');
+		var selectLi = $('breed');
+		var	makeSelect = document.createElement('select');
 			makeSelect.setAttribute("id" ,"breed");
-		for(var i=0 , j=storeInfo.length; i<j; i++) {
+		for(var i=0 , j=breedInfo.length; i<j; i++) {
 			var pickOption = document.createElement("option");
-			var optionText = storeInfo[i];
+			var optionText = breedInfo[i];
 			pickOption.setAttribute("value", optionText);
 			pickOption.innerHTML = optionText;
-			makeSelect.appendChild(pickOption);
-		
-	}
-	selectLi.appendChild(makeSelect);
+			selectLi.appendChild( pickOption );
+	
+	}	
 }
 
 	function getSelectedRadio(){
@@ -58,6 +56,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	function storeInfo(){
 		var id = Math.floor(Math.random()*100000000001);
+		getSelectedRadio();
 		var item = {};
 			
 			item.oname = ["Owner's Name:", $("oname").value];
