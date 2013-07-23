@@ -23,7 +23,6 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	}	
 }
-
 	function getSelectedRadio(){
 		var radios = document.forms[0].sex;
 		for(var i=0; i<radios.length; i++){
@@ -88,11 +87,12 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("items").style.display = "block";
 		for(var i=0, len=localStorage.length; i<len; i++){
 			var makeli = document.createElement("li");
+			var linksli = document.createElement("li");
 			makeList.appendChild(makeli);
 			var key = localStorage.key(i);
 			var value = localStorage.getItem(key);
 			//convert the string from local storage valyue back to an oblect by using JSON.parse()
-			var obj = JSON.parse(value); //I knew this!
+			var obj = JSON.parse(value); 
 			var makeSubList = document.createElement("ul")
 			makeli.appendChild(makeSubList);
 			for (var n in obj){
@@ -100,11 +100,74 @@ window.addEventListener("DOMContentLoaded", function(){
 				makeSubList.appendChild(makeSubli);
 				var optSubText = obj[n][0] + " "+ obj[n][1];
 				makeSubli.innerHTML = optSubText;
+				makeSubList.appendChild(linksli);
 			}
+			makeItemLinks(localStorage.key(i), linksli); //create our edit and delete buttons/link for each item in local storage
 		}
 	}
-	//clear local storage... ths clears everything. I need a finction that lets me clear one field or entry.
+	//make item links function
+	//Create the edit and delete linksfor each stored item displayed.
+	function makeItemLinks(key, linksli){
+		//add edit single item link
+		var editLinks = document.createElement("a");
+		editLinks.href = "#";
+		editLinks.key = key;
+		var changeText = "Edit Information";
+		editLinks.addEventListener("click" , editItem);
+		editLinks.innerHTML = changeText;
+		linksli.appendChild(editLinks);
+		
+		//add line break
+		var bTag = document.createElement("br");
+		linksli.appendChild(bTag);
+		
+		//add delete single item delete
+		var deleteLinks = document.createElement("a");
+		deleteLinks.href = "#";
+		deleteLinks.key = key;
+		var deleteText = "Delete Information";
+		//deleteLinks.addEventListener("click" , deleteItem);
+		deleteLinks.innerHTML = deleteText;
+		linksli.appendChild(deleteLinks);
+		
+	}
+	
+	function editItem(){
+		//Grab the data from our item in local storage.
+		var value = localStorage.getItem(this.key);
+		var item = JSON.parse(value);
+		
+		//Show the form
+		toggleControls("off");
+		
+		//populate the form fields with the current localStorage values
+		$("oname").value = item.oname[1];
+		$("pname").value = item.pname[1];
+		$("breed").value = item.breed[1];
+		var radios = document.forms[0].sex;
+		for (var i=0; i<radios.length; i++){
+			if(radios[i].value == "Male" && item.sex[1] == "Male"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Female" && item.sex[1] == "Female"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Neutered" && item.sex[1] == "Neutered"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Spayed" && item.sex[1] == "Spayed"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Unknown" && item.sex[1] == "Unknown"){
+				radios[i].setAttribute("checked", "checked");
+			}
+		}
+		
+		$("slider").value = item.slider[1];
+		$("gdate").value = item.gdate[1];
+		$("onotes").value = item.onotes[1];
+		$("gnotes").value = item.gnotes[1];
+		$("pnotes").value = item.pnotes[1];
+	}
+	 
 	function clearLocal(){
+		//clear local storage.
 		if(localStorage.length === 0){
 			alert("There is no data to clear.")
 		}else{
@@ -113,6 +176,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			window.location.reload();
 			return false;
 		}
+		
 	}
 
 	//Variable defaults
