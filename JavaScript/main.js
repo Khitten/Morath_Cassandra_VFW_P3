@@ -52,8 +52,17 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 	}
 
-	function storeInfo(){
-		var id = Math.floor(Math.random()*100000000001);
+	function storeInfo(key){
+		//if there is no key this is new itemand we need a new key.
+		if(!key){
+			var id = Math.floor(Math.random()*100000000001);
+		}else{
+			//set the id to the existing key we are editing so it will 
+			//save over all of our data. The key is the same key that 
+			//has been passed along from the editInfo event handler
+			//the the validate function, and passed here, into the storeInfo function.
+			id = key;
+		}
 		getSelectedRadio();
 		var item = {};
 			item.oname = ["Owner's Name:", $("oname").value];
@@ -124,7 +133,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		deleteLinks.href = "#";
 		deleteLinks.key = key;
 		var deleteText = "Delete Information";
-		//deleteLinks.addEventListener("click" , deleteItem);
+		deleteLinks.addEventListener("click" , deleteItem);
 		deleteLinks.innerHTML = deleteText;
 		linksli.appendChild(deleteLinks);
 		
@@ -165,14 +174,25 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		//remove the initial listener from the input "save contact" button.
 		save.removeEventListener("click", storeInfo);
-		$("submit").value = "Edit Information";
-		var editSubm = $("submit");
-		//save the key value established in this function as a property of the editSubm event
+		$("store").value = "Edit Information";
+		var editSubm = $("store");
+		//save the key value established in this function as a 
+		//property of the editSubm event
 		//to use the value when we save the data we have editted
 		editSubm.addEventListener("click", validate);
 		editSubm.key = this.key;
 	}
-	 
+	
+	function deleteItem(){
+		var verify = confirm("Are you sure you want to delete this contact?");
+		if (verify){
+			localStorage.removeItem(this.key);
+			alert("This contact was deleted!");
+			window.location.reload();
+		}else{
+			alert("This contact was not deleted.");
+		}
+	}
 	function clearLocal(){
 		//clear local storage.
 		if(localStorage.length === 0){
@@ -182,8 +202,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			alert("All contacts are deleted.")
 			window.location.reload();
 			return false;
-		}
-		
+		}	
 	}
 	function validate(e){
 		//define elements to check
@@ -206,12 +225,12 @@ window.addEventListener("DOMContentLoaded", function(){
 			messageArray.push(breedError);
 		}
 	//check first name validation
-		if ( ( !getOwnerName.value ) || getOwnerName.value.length === 0){
+		if ( (!getOwnerName.value) || getOwnerName.value.length === 0){
 			var ownerNameError = "Please enter the owner's name.";
 			getOwnerName.style.border = "1px solid red";
 			messageArray.push(ownerNameError);
 		}
-		if ( ( !getPetName.value ) || getPetName.value.length === 0){
+		if ( (!getPetName.value) || getPetName.value.length === 0){
 			var petNameError = "Please enter the pet's name.";
 			getPetName.style.border = "1px solid red";
 			messageArray.push(petNameError);
@@ -227,8 +246,11 @@ window.addEventListener("DOMContentLoaded", function(){
 			e.preventDefault();
 			return false;
 		}else{ 
-			//If everything is Okay, save the Data
-			storeInfo();
+			//If everything is Okay, save the Data.
+			//Send the key value(Which came from the editItem function)
+			//Remember this key value was passed through the editSubm 
+			//event listener as a property.
+			storeInfo(this.key);
 		}
 	}
 	//Variable defaults
@@ -243,7 +265,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		clear.addEventListener("click" , clearLocal);
 	var display = $("display");
 		display.addEventListener("click", getData);
-	var store = $("store");
+	var save = $("store");
 		store.addEventListener("click", validate);
 		
 });
