@@ -20,18 +20,18 @@
         	<!--Form-->
             <b>Submit or clear all fields</b>
             <nav>
-            	<a href = "#" id="store">Submit Data </br></a>
             	<a href = "#" id="clear">Clear Stored Data </br></a>
                 <a href = "#" id="display">Show Data </a>
                 <a href = "Pageadditem.html" id="addNew" style="display:none;"> Add New Item</a>
             </nav>
-         	<form action="#"method="post" id="clientInformation" />
+         	<form action="#"method="post" id="clientInformation">
             	<fieldset id="ownerFieldSet">
             	<legend>About The Owner</legend>
-                <!--<span>* fields are required.(coming soon)</span>-->
+                <span>* fields are required.</span>
+                <ul id="errors"></ul>
            			 <h2>Owner's Name</h2><!--Text Area-->
             <ul id="ownerInformation">
-            	<li><label for="oname">Owner's Name:</label><input type="text" id="oname" /></li>
+            	<li><label for="oname">* Owner's Name:</label><input type="text" id="oname" /></li>
             	<li><label for="onotes">Owner Notes:</label><textarea id="onotes"></textarea></li>
             </ul>
             </fieldset>
@@ -39,10 +39,10 @@
             <legend>About The Pet</legend>
             <h2>Pet's Name</h2> <!--Text Area-->
             <ul>
-             	<li><label for="pname">Pet's Name:</label><input type="text" id="pname" /></li>
+             	<li><label for="pname">* Pet's Name:</label><input type="text" id="pname" /></li>
              	<li><label for="pnotes"></label>Pet Notes:<textarea id="pnotes"></textarea></li>
             		<h3>Breed</h3><!--Optgroup-->
-                <li><label for="breed">What is the pet's breed?</label>
+                <li><label for="breed">* What is the pet's breed?</label>
                  	<select id="breed"><!--
                          <optgroup label="Dogs">
                          <option value="small">small</option>
@@ -81,6 +81,8 @@
             <li><label for="gnotes">Grooming Notes:</label><textarea id="gnotes"></textarea></li>
             </ul>
             </fieldset>
+            <input type="submit" value="Submit Data" id="store" /><br />
+            <!--<nav><a href = "#" id="store">Submit Data </br></a></nav>-->
         </form>
         <script src="JavaScript/main.js" type="text/javascript"></script>
 </body>

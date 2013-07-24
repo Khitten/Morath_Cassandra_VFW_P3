@@ -20,7 +20,6 @@ window.addEventListener("DOMContentLoaded", function(){
 			pickOption.setAttribute("value", optionText);
 			pickOption.innerHTML = optionText;
 			selectLi.appendChild( pickOption );
-	
 	}	
 }
 	function getSelectedRadio(){
@@ -57,7 +56,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		var id = Math.floor(Math.random()*100000000001);
 		getSelectedRadio();
 		var item = {};
-			
 			item.oname = ["Owner's Name:", $("oname").value];
 			item.onotes = ["Owner's Notes:", $("onotes").value];
 			item.pname = ["Pet's Name:", $("pname").value];
@@ -164,6 +162,15 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("onotes").value = item.onotes[1];
 		$("gnotes").value = item.gnotes[1];
 		$("pnotes").value = item.pnotes[1];
+		
+		//remove the initial listener from the input "save contact" button.
+		save.removeEventListener("click", storeInfo);
+		$("submit").value = "Edit Information";
+		var editSubm = $("submit");
+		//save the key value established in this function as a property of the editSubm event
+		//to use the value when we save the data we have editted
+		editSubm.addEventListener("click", validate);
+		editSubm.key = this.key;
 	}
 	 
 	function clearLocal(){
@@ -178,17 +185,65 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 		
 	}
-
+	function validate(e){
+		//define elements to check
+		var getBreeds = $("breed");
+		var getOwnerName = $("oname");
+		var getPetName = $("pname");
+		
+		//reset error messages
+		errMsg.innerHTML = "";
+		getBreeds.style.border = "1px solid black";
+		getOwnerName.style.border = "1px solid black";
+		getPetName.style.border = "1px solid black";
+		
+		//get error messages
+		var messageArray = [ ];
+		//breed validation
+		if (getBreeds.value === "--Choose A Breed--"){
+			var breedError = "Please choose a breed.";
+			getBreeds.style.border = "1px solid red";
+			messageArray.push(breedError);
+		}
+	//check first name validation
+		if ( ( !getOwnerName.value ) || getOwnerName.value.length === 0){
+			var ownerNameError = "Please enter the owner's name.";
+			getOwnerName.style.border = "1px solid red";
+			messageArray.push(ownerNameError);
+		}
+		if ( ( !getPetName.value ) || getPetName.value.length === 0){
+			var petNameError = "Please enter the pet's name.";
+			getPetName.style.border = "1px solid red";
+			messageArray.push(petNameError);
+		}
+		//If there are errors then display them on the screen
+		if(messageArray.length >= 1)
+		{
+			for(var i=0, j=messageArray.length; i<j; i++){
+				var txt = document.createElement("li");
+				txt.innerHTML = messageArray[i];
+				errMsg.appendChild(txt);
+			}
+			e.preventDefault();
+			return false;
+		}else{ 
+			//If everything is Okay, save the Data
+			storeInfo();
+		}
+	}
 	//Variable defaults
-	var breedInfo = ["--Choose A Breed--", "Dogs", "Cats" ], //Not working?
-		sexValue;
-	chooseBreed();
+	var breedInfo = ["--Choose A Breed--", "Dogs", "Cats" ], 
+		sexValue,
+		errMsg = $("errors");
+	
+ 	chooseBreed();
+	
 	/*Set link and submit click events*/
 	var clear = $("clear");
 		clear.addEventListener("click" , clearLocal);
 	var display = $("display");
 		display.addEventListener("click", getData);
 	var store = $("store");
-		store.addEventListener("click" , storeInfo);
+		store.addEventListener("click", validate);
 		
 });
