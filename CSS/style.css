@@ -17,7 +17,7 @@ font-style: normal;
 body {
 text-align: center;
 margin: 0;
-padding: 20px 0px 10px 30px;
+padding: 20px 10px 20px 10px;
 font-family: Georgia, "Times New Roman", Times, serif;
 font-size: 100%;
 line-height: normal;
@@ -100,8 +100,3 @@ h1, h2, h3, h4, h5, h6, div, ul {
 margin: 20px;
 padding: 0px;
 }
-
-/* I have been trying for hours to get the app to center. 
-The outter fieldset shouldn't have so much space on the left. 
-I will work on it again when I don't want to throw the computer across the room.*/
-
