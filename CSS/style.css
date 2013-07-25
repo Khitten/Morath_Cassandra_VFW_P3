@@ -9,12 +9,12 @@ vfw project 2
 html{
 	overflow-y: scroll;
 }
-@font-face{
+@font-face {
 font-family: "New Times Roman", Times, serif, Arial, Helvetica, sans-serif, "Comic Sans MS", cursive;
 font-weight: normal;
 font-style: normal;
 }
-body{
+body {
 text-align: center;
 margin: 0;
 padding: 20px 0px 10px 30px;
@@ -23,26 +23,26 @@ font-size: 100%;
 line-height: normal;
 background-color:#CCC;
 }
-background{
+background {
 background-color:#999;
 background-position:center;
 color:#999;
 margin:1em;
 }
-p{
+p {
 padding:10px;
 margin:20px;
 text-align:left;
 color:#000;
 }
-a{
+a {
 color:#006;
 }
-a:hover{
+a:hover {
 color: #960;
 border-bottom: 1px dashed #cb7d20;
 }
-li{
+li {
 list-style-type:none;
 }
 input[type="text"]{
@@ -51,14 +51,14 @@ display:inline-block;
 margin-bottom:10px;
 background-color:white;
 }
-textarea{
+textarea {
 width:200px;
 display:inline-block;
 margin-bottom:10px;
 background-color:white;
 text-align:left;
 }
-li{
+li {
 text-align:center;
 }
 h1 {
@@ -67,14 +67,20 @@ text-align:center;
 font-size:30pt;
 font-family:"Comic Sans MS", cursive;
 }
-nav{
+nav {
 margin-left:center;
 font-family:"Comic Sans MS", cursive;
 }
-img{
+img {
 border:solid;
 margin:5px;
 padding:1.5px;
+}
+.errMsg {
+background: #ff0000;
+color: #fff;
+font-weight: bold;
+padding: 10px
 }
 fieldset { 
 border:1px solid green;
@@ -85,15 +91,16 @@ padding:0px 0px 0px 0px;
 
 legend {
 padding: 0.2em 0.5em;
-border:1px solid green;
-color:green;
-font-size:90%;
-text-align:center;
+border: 1px solid green;
+color: green;
+font-size: 90%;
+text-align: center;
 }
-h1, h2, h3, h4, h5, h6, div, ul{
-margin:20px;
-padding:0px;
+h1, h2, h3, h4, h5, h6, div, ul {
+margin: 20px;
+padding: 0px;
 }
+
 /* I have been trying for hours to get the app to center. 
 The outter fieldset shouldn't have so much space on the left. 
 I will work on it again when I don't want to throw the computer across the room.*/

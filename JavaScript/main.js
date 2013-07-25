@@ -49,7 +49,6 @@ window.addEventListener("DOMContentLoaded", function(){
 			default:
 				return false;		
 		}
-		
 	}
 
 	function storeInfo(key){
@@ -136,7 +135,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		deleteLinks.addEventListener("click" , deleteItem);
 		deleteLinks.innerHTML = deleteText;
 		linksli.appendChild(deleteLinks);
-		
 	}
 	
 	function editItem(){
